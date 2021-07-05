@@ -1,6 +1,11 @@
+import 'dart:math';
+
 import 'package:flutter/material.dart';
 import 'package:flutter_application_1/models/Question.dart';
 import 'package:flutter_application_1/widgets/answer.dart';
+import 'package:flutter_application_1/widgets/progress_var.dart';
+import 'package:flutter_application_1/widgets/quiz.dart';
+import 'package:flutter_application_1/widgets/result.dart';
 
 class HomePage extends StatefulWidget {
   @override
@@ -11,6 +16,25 @@ class _HomePageState extends State<HomePage> {
   final QuestionData data = QuestionData();
   int _countResult = 0;
   int _questionIndex = 0;
+
+  List<Icon> _icons = [];
+
+  void _clearState() => setState((){
+    _questionIndex = 0;
+    _countResult = 0;
+    _icons = [];
+  });
+
+  void _onChangeAnswer(bool isCorrect) => setState(() {
+    if (isCorrect) {
+      _icons.add(Icon(Icons.brightness_1, color: Color(0xFFbd27ff)));
+      _countResult++;
+    } else {
+      _icons.add(Icon(Icons.brightness_1, color: Color(0xFF000000)));
+    }
+
+    _questionIndex +=1 ;
+  });
 
   Widget build(BuildContext context) {
     return Scaffold(
@@ -29,22 +53,25 @@ class _HomePageState extends State<HomePage> {
         child: Column(
           children: <Widget>[
             
-            Container(
-              padding: const EdgeInsets.all(10.0),
-              child: Text(
-                data.questions[_questionIndex].title,
-                style: Theme.of(context).textTheme.caption,
-                ),
+            ProgressBar(
+              icons: _icons,
+              count: _questionIndex,
+              total: data.questions.length,
             ),
-            
-            ...data.questions[_questionIndex].answers.map(
-              (e) => Answer(title: e['answer'],)
-              ).toList(),
 
-            RaisedButton(onPressed: () =>
-              setState(() => _questionIndex++),
-              child: Text('Next'),
-            ),
+
+            _questionIndex < data.questions.length
+            ? Quiz(
+              index: _questionIndex,
+              questionData: data,
+              onChangeAnswer: _onChangeAnswer,
+            )
+            : Result(
+              count: _countResult,
+              total: data.questions.length,
+              onClearState: _clearState,
+            )
+          
           ],
         ),
       ),

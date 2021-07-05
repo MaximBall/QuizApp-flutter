@@ -13,22 +13,22 @@ class Question {
 class QuestionData {
   final data = [
     Question(
-      title: 'Кем хочешь стать?', 
+      title: 'Какой остров самый большой в мире?', 
       answers: [
-      {'answer': 'Ведущиим Орла и Решки'},
-      {'answer': 'Ведущиим Орла и РешкиCorrect', 'isCorrect': 1},
+      {'answer': 'Мадагаскар'},
+      {'answer': 'Гренландия', 'isCorrect': 1},
     ]),
     Question(
-      title: 'Вопрос 1?', 
+      title: 'Белые медведи охотятся на пингвинов?', 
       answers: [
-      {'answer': 'Ведущиим Орла и РешкиCor', 'isCorrect': 1},
-      {'answer': 'Ведущиим Орла и Решки'},
+      {'answer': 'Да'},
+      {'answer': 'Нет', 'isCorrect': 1},
     ]),
     Question(
-      title: 'Вопрос2', 
+      title: 'Что из этого изобрели раньше?', 
       answers: [
-      {'answer': 'Ведущиим Орла и РешкиCor', 'isCorrect': 1},
-      {'answer': 'Ведущиим Орла и Решки'},
+      {'answer': 'Часы', 'isCorrect': 1},
+      {'answer': 'Противогаз'},
     ]),
   ];
 
